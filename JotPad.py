@@ -8,24 +8,24 @@ from tkinter.messagebox import *
 from ctypes import windll
 import os
 
-root = Tk()
+window = Tk()
 windll.shcore.SetProcessDpiAwareness(1)
-root.iconbitmap("icon.ico")
-root.geometry("600x700")
+window.iconbitmap("icon.ico")
+window.geometry("600x700")
 
 
 #scroll bar
-scrollx = Scrollbar(root, orient=HORIZONTAL, activerelief=RIDGE)
-scrolly = Scrollbar(root, orient=VERTICAL, activerelief=RIDGE)
+scrollx = Scrollbar(window, orient=HORIZONTAL, activerelief=RIDGE)
+scrolly = Scrollbar(window, orient=VERTICAL, activerelief=RIDGE)
 scrolly.pack(side=RIGHT, fill=Y)
 scrollx.pack(side=BOTTOM, fill=X)
 
 
 #text box
-txt = Text(root, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
+txt = Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
 txt.pack(expand=True, fill=BOTH)
 txt.focus()
-txtwrap = BooleanVar(root)
+txtwrap = BooleanVar(window)
 
 txtwrap.set(False)
 
@@ -42,12 +42,14 @@ def changed(*args):
     pass
 
 
+# FIXME
+
 #closing dialog box
 def confirmExit(*args):
     msg = "Do you really want to close JotPad?"
     val = askyesno("Close JotPad", msg)
     if val:
-        root.destroy()
+        window.destroy()
 
 
 #FILE MENU OPTIONS
@@ -68,18 +70,18 @@ def confirmOpen():
 def newfile(*args):
     if confirmOpen():
         txt.delete(0.0, END)
-        root.title("Untitled - JotPad")
+        window.title("Untitled - JotPad")
         global exist
         exist = 0
 
 
 def openfile(*args):
     try:
-        fl = askopenfilename(parent=root, title="Open file")
+        fl = askopenfilename(parent=window, title="Open file")
         if fl and confirmOpen():
             txt.delete(0.0, END)
             with open (fl, "r") as f:
-                root.title(os.path.basename(fl) + " - JotPad")
+                window.title(os.path.basename(fl) + " - JotPad")
                 txt.insert(1.0, f.read())
             global working_file
             working_file = fl
@@ -91,13 +93,13 @@ def openfile(*args):
 
 def saveAs(*args):
     try:
-        fl = asksaveasfilename(parent=root, title="Save as", defaultextension=".txt",
+        fl = asksaveasfilename(parent=window, title="Save as", defaultextension=".txt",
                                filetypes=[("Text files", ".txt"),
                                           ("All files", ".")])
         if fl:
             content = txt.get(1.0, "end-1c")
             with open(fl, "w") as f:
-                root.title(os.path.basename(fl) + " - JotPad")
+                window.title(os.path.basename(fl) + " - JotPad")
                 f.write(content)
             global working_file
             working_file = fl
@@ -144,8 +146,8 @@ ulchk = BooleanVar()
 ovschk = BooleanVar()
 
 def fontSet(*args):
-    fontBox = Toplevel(root)
-    fontBox.transient(root)
+    fontBox = Toplevel(window)
+    fontBox.transient(window)
     fontBox.rowconfigure(6, weight=1)
     fontBox.columnconfigure(2, weight=1)
     fontBox.geometry("400x220")
@@ -257,8 +259,8 @@ def txtwrapSet(*args):
 #HELP MENU OPTIONS
 
 def about(*args):
-    aboutbox = Toplevel(root)
-    aboutbox.transient(root)
+    aboutbox = Toplevel(window)
+    aboutbox.transient(window)
     aboutbox.title("About JotPad")
     aboutbox.geometry("250x200")
     aboutbox.resizable(0, 0)
@@ -276,7 +278,7 @@ def about(*args):
 
 
 #menubar
-menubar = Menu(root)
+menubar = Menu(window)
 
 #file menu
 file = Menu(menubar, tearoff=0)
@@ -318,12 +320,12 @@ help.add_command(label="About", font=("", 10), command=about)
 newfile()
 scrollx.config(command=txt.xview)
 scrolly.config(command=txt.yview)
-root.config(menu=menubar)
-root.bind('<Control-n>', newfile)
-root.bind('<Control-o>', openfile)
-root.bind('<Control-S>', saveAs)
-root.bind('<Control-s>', save)
+window.config(menu=menubar)
+window.bind('<Control-n>', newfile)
+window.bind('<Control-o>', openfile)
+window.bind('<Control-S>', saveAs)
+window.bind('<Control-s>', save)
 
 
-root.protocol("WM_DELETE_WINDOW", confirmExit)
-root.mainloop()
+window.protocol("WM_DELETE_WINDOW", confirmExit)
+window.mainloop()
