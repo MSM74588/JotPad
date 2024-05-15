@@ -34,12 +34,12 @@ window.geometry("600x700")
 dark_bg = "#212121"
 window.config(bg=dark_bg)  
 
-
-#scroll bar
-scrollx = ttk.Scrollbar(window, orient=HORIZONTAL, bootstyle="light-round")
-scrolly = ttk.Scrollbar(window, orient=VERTICAL, bootstyle="light-round")
-scrolly.pack(side=RIGHT, fill=Y)
-scrollx.pack(side=BOTTOM, fill=X)
+# FIXED, added in codeblock
+# #scroll bar
+# scrollx = ttk.Scrollbar(window, orient=HORIZONTAL, bootstyle="light-round")
+# scrolly = ttk.Scrollbar(window, orient=VERTICAL, bootstyle="light-round")
+# scrolly.pack(side=RIGHT, fill=Y)
+# scrollx.pack(side=BOTTOM, fill=X)
 
 #CODE VIEW
 # txt = tk.Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
@@ -279,12 +279,13 @@ def txtwrapSet(*args):
     val = txtwrap.get()
     if val:
         txt.config(wrap="word")
-        scrollx.pack_forget()
+        # FIXME
+        # scrollx.pack_forget()
     else:
         txt.pack_forget()
         txt.config(wrap="none")
         # FIXME
-        scrollx.pack(side=BOTTOM, fill=X)
+        # scrollx.pack(side=BOTTOM, fill=X) 
         txt.pack(expand=True, fill=BOTH)
 
 
@@ -355,8 +356,9 @@ help.add_command(label="About", font=("", 10), command=about)
 
 #config
 newfile()
-scrollx.config(command=txt.xview)
-scrolly.config(command=txt.yview)
+# FIXME
+# scrollx.config(command=txt.xview)
+# scrolly.config(command=txt.yview)
 window.config(menu=menubar)
 window.bind('<Control-n>', newfile)
 window.bind('<Control-o>', openfile)

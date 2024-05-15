@@ -26,6 +26,7 @@ LexerType = Union[Type[pygments.lexer.Lexer], pygments.lexer.Lexer]
 
 class Scrollbar(ttk.Scrollbar):
     def __init__(self, master: CodeView, autohide: bool, *args, **kwargs) -> None:
+        kwargs['bootstyle'] = 'light-round'
         super().__init__(master, *args, **kwargs)
         self.autohide = autohide
 
