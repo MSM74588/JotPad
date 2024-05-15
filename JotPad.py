@@ -63,7 +63,7 @@ mb = ttk.Menubutton(window, text='Language', style='secondary.TMenubutton')
 menu = tk.Menu(mb)
 # add options
 option_var = tk.StringVar()
-for option in ['Python', 'Rust', 'Javascript']:
+for option in ['Python', 'Rust', 'Javascript', 'C', 'C++', 'Dart']:
     menu.add_radiobutton(label=option, value=option, variable=option_var)
 
 # associate menu with menubutton
