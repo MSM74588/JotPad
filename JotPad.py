@@ -14,6 +14,7 @@ from dark_mode_util import dark_title_bar
 # window = ttk.Window(themename='cyborg')
 window = ttk.Window(themename='cyborg')
 
+ver = 1.1
 
 dark_title_bar(window)
 # set_dark_menubar(window)
@@ -280,7 +281,6 @@ def about(*args):
     aboutbox.geometry("250x200")
     aboutbox.resizable(0, 0)
     aboutbox.iconbitmap("icon.ico")
-    ver = 1
     msg = f"JotPad \nVersion: {ver} \n\nDeveloped by: \nAnurag Chattopadhyay \nMandraSaptak Mandal"
     tk.Label(aboutbox, text=msg, font=("", "11"), justify="left", pady=10).pack()
     aboutbox.focus()
