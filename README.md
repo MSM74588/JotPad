@@ -5,6 +5,7 @@
 ## 📷 Screenshots
 
 ![dark_mode](./screenshots/screenshot1.png)
+![syntax_mode](./screenshots/screenshot2.png)
 
 ## ⚡️ Quick start
 
