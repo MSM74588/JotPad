@@ -52,10 +52,25 @@ txt = CodeView(window, lexer=selected_lexer, font="consolas 13", wrap="none", co
 txt.pack(expand=True, fill=BOTH)
 txt.focus()
 txtwrap = tk.BooleanVar(window)
-
-# FIXME the codeview has its own scroll bar, so now has to customise that scrollbars 
-
 txtwrap.set(False)
+
+# bottombar = ttk.Combobox(window)
+# for option in ['Python', 'Rust', 'HTML']:
+#     bottombar.insert('end', option)
+# bottombar.pack(anchor="e")
+
+mb = ttk.Menubutton(window, text='Language', style='secondary.TMenubutton')
+menu = tk.Menu(mb)
+# add options
+option_var = tk.StringVar()
+for option in ['Python', 'Rust', 'Javascript']:
+    menu.add_radiobutton(label=option, value=option, variable=option_var)
+
+# associate menu with menubutton
+mb['menu'] = menu
+
+mb.pack(anchor="e")
+
 
 #saved status flag
 saved=0
@@ -359,12 +374,19 @@ newfile()
 # FIXME
 # scrollx.config(command=txt.xview)
 # scrolly.config(command=txt.yview)
+
+
+
+# def close_window(event):
+#     event.widget.quit()  # Close the window
+window.bind_all("<Control-q>", confirmExit)
+
+
 window.config(menu=menubar)
 window.bind('<Control-n>', newfile)
 window.bind('<Control-o>', openfile)
 window.bind('<Control-S>', saveAs)
 window.bind('<Control-s>', save)
-
 
 window.protocol("WM_DELETE_WINDOW", confirmExit)
 window.mainloop()
