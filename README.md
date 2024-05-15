@@ -53,3 +53,9 @@ make .
 - Add pyinstaller config file
 - Add .python-version
 - Use Chlorophyll for syntax highlighting
+
+## Ideas
+
+- common patters to add, TODO, DEBUG, REDO, FIXME, ERROR. These will be get highlighted
+- https://stackoverflow.com/questions/38594978/tkinter-syntax-highlighting-for-text-widget
+- https://stackoverflow.com/a/77662152
