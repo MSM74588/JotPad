@@ -3,21 +3,31 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from tkinter import font as tkfont
-from tkinter.constants import HORIZONTAL, VERTICAL, RIDGE, RIGHT, BOTTOM, Y, X, BOTH, END
+from tkinter.constants import HORIZONTAL, VERTICAL, RIDGE, RIGHT, BOTTOM, Y, X, BOTH, END, SOLID, SUNKEN, GROOVE
 from tkinter.ttk import Combobox
 import ttkbootstrap as ttk
+# import customtkinter as ctk # USE CTK LATER
 from ctypes import windll
 import os
+from dark_mode_util import dark_title_bar
 
-window = ttk.Window()
+# window = ttk.Window(themename='cyborg')
+window = ttk.Window(themename='cyborg')
+
+
+dark_title_bar(window)
+# set_dark_menubar(window)
+
 windll.shcore.SetProcessDpiAwareness(1)
 window.iconbitmap("icon.ico")
 window.geometry("600x700")
+dark_bg = "#212121"
+window.config(bg=dark_bg)  
 
 
 #scroll bar
-scrollx = tk.Scrollbar(window, orient=HORIZONTAL, activerelief=RIDGE)
-scrolly = tk.Scrollbar(window, orient=VERTICAL, activerelief=RIDGE)
+scrollx = ttk.Scrollbar(window, orient=HORIZONTAL, bootstyle="light-round")
+scrolly = ttk.Scrollbar(window, orient=VERTICAL, bootstyle="light-round")
 scrolly.pack(side=RIGHT, fill=Y)
 scrollx.pack(side=BOTTOM, fill=X)
 
@@ -270,7 +280,8 @@ def about(*args):
     aboutbox.geometry("250x200")
     aboutbox.resizable(0, 0)
     aboutbox.iconbitmap("icon.ico")
-    msg = "JotPad \nVersion: 1.0 \n\nDeveloped by: \nAnurag Chattopadhyay"
+    ver = 1
+    msg = f"JotPad \nVersion: {ver} \n\nDeveloped by: \nAnurag Chattopadhyay \nMandraSaptak Mandal"
     tk.Label(aboutbox, text=msg, font=("", "11"), justify="left", pady=10).pack()
     aboutbox.focus()
 
@@ -283,7 +294,12 @@ def about(*args):
 
 
 #menubar
-menubar = tk.Menu(window)
+# dark_bg = "#333333"
+# dark_fg = "#ffffff"
+
+# DEBUG: you cannot change the menubar bg in Windows or Mac, possible in linux
+menubar = ttk.Menu(window, tearoff=False, background="red")
+
 
 #file menu
 file = tk.Menu(menubar, tearoff=0)

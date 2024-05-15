@@ -53,3 +53,4 @@ make .
 - Add requirements.txt
 - Add pyinstaller config file
 - Add .python-version
+- Use Chlorophyll for syntax highlighting
