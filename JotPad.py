@@ -5,11 +5,20 @@ from tkinter import filedialog, messagebox
 from tkinter import font as tkfont
 from tkinter.constants import HORIZONTAL, VERTICAL, RIDGE, RIGHT, BOTTOM, Y, X, BOTH, END, SOLID, SUNKEN, GROOVE
 from tkinter.ttk import Combobox
+import pygments.lexers
 import ttkbootstrap as ttk
 # import customtkinter as ctk # USE CTK LATER
 from ctypes import windll
 import os
 from dark_mode_util import dark_title_bar
+
+import pygments
+
+# from chlorophyll import CodeView
+from codeblock import CodeView
+# from pygments.formatters import TkinterFormatter
+
+# from pygments import highlight
 
 # window = ttk.Window(themename='cyborg')
 window = ttk.Window(themename='cyborg')
@@ -32,12 +41,19 @@ scrolly = ttk.Scrollbar(window, orient=VERTICAL, bootstyle="light-round")
 scrolly.pack(side=RIGHT, fill=Y)
 scrollx.pack(side=BOTTOM, fill=X)
 
+#CODE VIEW
+# txt = tk.Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
 
-#text box
-txt = tk.Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
+selected_lexer = pygments.lexers.get_lexer_by_name("python")
+
+# https://github.com/rdbende/chlorophyll/blob/main/chlorophyll/codeview.py
+txt = CodeView(window, lexer=selected_lexer, font="consolas 13", wrap="none", color_scheme="ayu-dark")
+
 txt.pack(expand=True, fill=BOTH)
 txt.focus()
 txtwrap = tk.BooleanVar(window)
+
+# FIXME the codeview has its own scroll bar, so now has to customise that scrollbars 
 
 txtwrap.set(False)
 
