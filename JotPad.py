@@ -9,7 +9,7 @@ import ttkbootstrap as ttk
 from ctypes import windll
 import os
 
-window = tk.Tk()
+window = ttk.Window()
 windll.shcore.SetProcessDpiAwareness(1)
 window.iconbitmap("icon.ico")
 window.geometry("600x700")
