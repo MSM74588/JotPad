@@ -4,8 +4,7 @@
 
 ## 📷 Screenshots
 
-- Img 1
-- Img 2
+![dark_mode](./screenshots/screenshot1.png)
 
 ## ⚡️ Quick start
 
