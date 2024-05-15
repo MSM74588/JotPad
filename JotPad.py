@@ -1,7 +1,8 @@
 # JotPad - Text Editor Application using tkinter
 
 import tkinter as tk
-from tkinter import filedialog, messagebox, font
+from tkinter import filedialog, messagebox
+from tkinter import font as tkfont
 from tkinter.constants import HORIZONTAL, VERTICAL, RIDGE, RIGHT, BOTTOM, Y, X, BOTH, END
 from tkinter.ttk import Combobox
 import ttkbootstrap as ttk
@@ -161,7 +162,7 @@ def fontSet(*args):
     font = tk.Label(fontBox, text="Font:", font="constanta 12 bold").grid(row=0, column=0, padx=15, pady=5)
     fName = tk.StringVar(fontBox)
     fName.set(currFname)
-    fontlist = sorted([i for i in tk.families() if i[0].isalpha()])
+    fontlist = sorted([i for i in tkfont.families() if i[0].isalpha()])
     fonts = Combobox(fontBox, textvariable=fName, values=fontlist, font=("", 10), state="readonly").grid(row=0, column=1)
     
     size = tk.Label(fontBox, text="Size:", font="constanta 12 bold"). grid(row=1, column=0, padx=15, pady=5)
@@ -333,3 +334,5 @@ window.bind('<Control-s>', save)
 
 window.protocol("WM_DELETE_WINDOW", confirmExit)
 window.mainloop()
+
+
