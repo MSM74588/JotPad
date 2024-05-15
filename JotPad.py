@@ -14,6 +14,9 @@ from dark_mode_util import dark_title_bar
 
 import pygments
 
+import subprocess
+import platform
+
 # from chlorophyll import CodeView
 from codeblock import CodeView
 # from pygments.formatters import TkinterFormatter
@@ -44,6 +47,23 @@ window.config(bg=dark_bg)
 #CODE VIEW
 # txt = tk.Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
 
+def openTerminal():
+    print("OPEN TERMINAL")
+    operating_system = platform.system()
+
+    # Command to open the default terminal based on the operating system
+    if operating_system == 'Windows':
+        # Path to Windows Terminal executable
+        windows_terminal_path = os.path.join(os.getenv('LOCALAPPDATA'), 'Microsoft', 'WindowsApps', 'wt.exe')
+        subprocess.Popen([windows_terminal_path])
+    elif operating_system == 'Linux':
+        subprocess.Popen('xdg-terminal', shell=True)
+    elif operating_system == 'Darwin':  # macOS
+        subprocess.Popen('open -a Terminal', shell=True)
+    else:
+        print(f"Unsupported operating system: {operating_system}")
+
+
 selected_lexer = pygments.lexers.get_lexer_by_name("python")
 
 # https://github.com/rdbende/chlorophyll/blob/main/chlorophyll/codeview.py
@@ -59,18 +79,23 @@ txtwrap.set(False)
 #     bottombar.insert('end', option)
 # bottombar.pack(anchor="e")
 
-mb = ttk.Menubutton(window, text='Language', style='secondary.TMenubutton')
+bottom_bar = ttk.Frame(master=window)
+
+mb = ttk.Menubutton(master=bottom_bar, text='Language', style='secondary.TMenubutton')
 menu = tk.Menu(mb)
 # add options
 option_var = tk.StringVar()
 for option in ['Python', 'Rust', 'Javascript', 'C', 'C++', 'Dart']:
     menu.add_radiobutton(label=option, value=option, variable=option_var)
-
 # associate menu with menubutton
 mb['menu'] = menu
 
-mb.pack(anchor="e")
+terminal_btn = ttk.Button(master=bottom_bar,text="Open Terminal", style='primary.TButton', command=openTerminal)
 
+terminal_btn.pack(side='left')
+mb.pack(side='right')
+
+bottom_bar.pack(fill="x")
 
 #saved status flag
 saved=0
