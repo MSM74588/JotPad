@@ -46,10 +46,14 @@ def changed(*args):
 
 #closing dialog box
 def confirmExit(*args):
-    msg = "Do you really want to close JotPad?"
-    val = askyesno("Close JotPad", msg)
-    if val:
+    textarea_val = txt.get(1.0, "end-1c")
+    if not textarea_val:
         window.destroy()
+    else:
+        msg = "Do you really want to close JotPad?"
+        val = askyesno("Close JotPad", msg)
+        if val:
+            window.destroy()
 
 
 #FILE MENU OPTIONS
