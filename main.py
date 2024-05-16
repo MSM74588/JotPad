@@ -63,10 +63,23 @@ def openTerminal():
     else:
         print(f"Unsupported operating system: {operating_system}")
 
+default_lang = "python"
+selected_lexer = pygments.lexers.get_lexer_by_name(default_lang)
 
-selected_lexer = pygments.lexers.get_lexer_by_name("python")
+
+option_var = tk.StringVar(value="Language")
+def print_selected_value():
+    selected_value = option_var.get()
+    print(selected_value)
+    # selected_lexer = pygments.lexers.get_lexer_by_name(selected_value)
+    new_lexer = pygments.lexers.get_lexer_by_name(selected_value)
+    txt.config(lexer=new_lexer)
+    txt.highlight_all()
+
 
 # https://github.com/rdbende/chlorophyll/blob/main/chlorophyll/codeview.py
+
+# txtData = tk.StringVar()
 txt = CodeView(window, lexer=selected_lexer, font="consolas 13", wrap="none", color_scheme="ayu-dark")
 
 txt.pack(expand=True, fill=BOTH)
@@ -81,12 +94,12 @@ txtwrap.set(False)
 
 bottom_bar = ttk.Frame(master=window)
 
-mb = ttk.Menubutton(master=bottom_bar, text='Language', style='secondary.TMenubutton')
+mb = ttk.Menubutton(master=bottom_bar, text="Language", textvariable=option_var,style='secondary.TMenubutton')
 menu = tk.Menu(mb)
 # add options
-option_var = tk.StringVar()
-for option in ['Python', 'Rust', 'Javascript', 'C', 'C++', 'Dart']:
-    menu.add_radiobutton(label=option, value=option, variable=option_var)
+
+for option in ['Python', 'Rust', 'Javascript', 'C', 'C++', 'Dart', 'YAML', 'Go']:
+    menu.add_radiobutton(label=option, value=option,variable=option_var,command=print_selected_value)
 # associate menu with menubutton
 mb['menu'] = menu
 
