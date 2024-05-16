@@ -84,6 +84,11 @@ txt = CodeView(window, lexer=selected_lexer, font="consolas 13", wrap="none", co
 
 txt.pack(expand=True, fill=BOTH)
 txt.focus()
+
+# !FIXME enables undo functionality, but is rough
+txt.config(undo=True)
+
+
 txtwrap = tk.BooleanVar(window)
 txtwrap.set(False)
 
@@ -293,6 +298,10 @@ def fontSet(*args):
             newfont = str(newfn+" "+newfs+boldval+itlval+ulval+ovsval)
             currFname = fName.get()
             currFsize = fSize.get()
+
+            # !DEBUG
+            print(newfont)
+
             txt.config(font=newfont)
 
     
@@ -419,6 +428,19 @@ newfile()
 #     event.widget.quit()  # Close the window
 window.bind_all("<Control-q>", confirmExit)
 
+# Function to handle undo action
+def undo_action(event=None):
+    txt.edit_undo()
+    print("UNDO")
+
+
+# Function to handle redo action
+def redo_action(event=None):
+    txt.edit_redo()
+    print("REDO")
+
+window.bind('<Control-z>', undo_action)
+window.bind('<Control-y>', redo_action)
 
 window.config(menu=menubar)
 window.bind('<Control-n>', newfile)
