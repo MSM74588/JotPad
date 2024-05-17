@@ -1,1 +1,5 @@
-
+Pygments==2.18.0
+pyperclip==1.8.2
+tklinenums==1.7.1
+toml==0.10.2
+ttkbootstrap==1.10.1

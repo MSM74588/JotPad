@@ -66,3 +66,9 @@ make .
 - common patters to add, TODO, DEBUG, REDO, FIXME, ERROR. These will be get highlighted
 - <https://stackoverflow.com/questions/38594978/tkinter-syntax-highlighting-for-text-widget>
 - <https://stackoverflow.com/a/77662152>
+
+## How to use NSIS
+
+- Install NSIS from official site (for windows)
+- Open NSIS application, then click on "Compile NSI Script"
+- Browse and select the *.nsi file
