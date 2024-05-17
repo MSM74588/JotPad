@@ -125,13 +125,16 @@ def set_theme():
     theme = theme_var.get()
     if theme == "light":
         txt.config(color_scheme="ayu-light")
-        window.style.theme_use(themename='journal')
+        window.style.theme_use(themename='pulse')
         set_light_title_bar(window)
 
     if theme == "dark":
         txt.config(color_scheme="ayu-dark")
         window.style.theme_use(themename='cyborg')
         set_dark_title_bar(window)
+
+    else:
+        pass
 
 theme_menu_option = ttk.Menubutton(master=bottom_bar, text="Theme", style="secondary.TMenubutton")
 theme_options = tk.Menu(theme_menu_option)
