@@ -21,3 +21,9 @@ jobs:
               uses: joncloud/makensis-action@v4.1
               with:
                 script-file: install_script.nsi
+              - name: 'Upload Artifact'
+                uses: actions/upload-artifact@v4
+                with:
+                  name: installer_file
+                  path: JotPadInstaller.exe
+                  retention-days: 5
