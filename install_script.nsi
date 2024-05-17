@@ -7,16 +7,13 @@ InstallDir "$PROGRAMFILES\JotPad"
 # Define the icon for the installer
 Icon "icon.ico"
 
-# The directory where the installer will extract the files
-SetOutPath "$INSTDIR"
-
 # Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
 # Define the files to be included in the installer
 Section "MainSection" SEC01
+  SetOutPath "$INSTDIR"  ; Set the output path within the section
   # Main executable
-  SetOutPath "$INSTDIR"
   File "dist\JotPad\JotPad.exe"
 
   # Additional files
