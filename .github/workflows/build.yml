@@ -8,12 +8,16 @@ jobs:
               uses: actions/checkout@v4
             - name: setup python
               uses: actions/setup-python@v5
-            - name: get all required dependencies
-              uses: ryan-rozario/pipreqs-action@master
-            - name: install dependencies
-              run: pip install -r requirements.txt
+            - name: install all dependencies
+              run: |
+                  pip install pipreqs
+                  pipreqs . --force
+                  pip install -r requirements.txt
+                  pip install pyinstaller
             - name: PyInstaller Action
-              uses: Martin005/pyinstaller-action@v1.2.0
+              run: |
+                  pyinstaller main.spec
+            - name: NSIS Action
+              uses: joncloud/makensis-action@v4.1
               with:
-                spec: 'main.spec'
-                requirements: 'requirements.txt'
+                script-file: install_script.nsi
