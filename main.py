@@ -32,7 +32,12 @@ dark_title_bar(window)
 # set_dark_menubar(window)
 
 windll.shcore.SetProcessDpiAwareness(1)
-window.iconbitmap("icon.ico")
+
+try:
+    window.iconbitmap(default='icon.ico')
+except tk.TclError:
+    pass  # Handle the case where the icon file is not found or cannot be set
+
 window.geometry("600x700")
 dark_bg = "#212121"
 window.config(bg=dark_bg)  

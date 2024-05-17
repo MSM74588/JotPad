@@ -8,3 +8,7 @@ build: main.spec
 
 clean:
 	rd /s /q build
+	rd /s /q dist
+
+
+rebuild: clean build
