@@ -10,7 +10,7 @@ import ttkbootstrap as ttk
 # import customtkinter as ctk # USE CTK LATER
 from ctypes import windll
 import os
-from dark_mode_util import dark_title_bar
+from dark_mode_util import set_dark_title_bar, set_light_title_bar
 
 import pygments
 
@@ -28,7 +28,7 @@ window = ttk.Window(themename='cyborg')
 
 ver = 1.1
 
-dark_title_bar(window)
+set_dark_title_bar(window)
 # set_dark_menubar(window)
 
 windll.shcore.SetProcessDpiAwareness(1)
@@ -112,11 +112,33 @@ for option in ['Python', 'Rust', 'Javascript', 'C', 'C++', 'Dart', 'YAML', 'Go']
     menu.add_radiobutton(label=option, value=option,variable=option_var,command=print_selected_value)
 # associate menu with menubutton
 mb['menu'] = menu
+mb.pack(side='right')
+
 
 terminal_btn = ttk.Button(master=bottom_bar,text="Open Terminal", style='primary.TButton', command=openTerminal)
-
 terminal_btn.pack(side='left')
-mb.pack(side='right')
+
+# !FIXME
+theme_var = tk.StringVar()
+
+def set_theme():
+    theme = theme_var.get()
+    if theme == "light":
+        txt.config(color_scheme="ayu-light")
+        window.style.theme_use(themename='journal')
+        set_light_title_bar(window)
+
+    if theme == "dark":
+        txt.config(color_scheme="ayu-dark")
+        window.style.theme_use(themename='cyborg')
+        set_dark_title_bar(window)
+
+theme_menu_option = ttk.Menubutton(master=bottom_bar, text="Theme", style="secondary.TMenubutton")
+theme_options = tk.Menu(theme_menu_option)
+for theme in ['light', 'dark']:
+    theme_options.add_radiobutton(label=theme, value=theme, variable=theme_var, command=set_theme)
+theme_menu_option['menu'] = theme_options
+theme_menu_option.pack(side='left')
 
 bottom_bar.pack(fill="x")
 
