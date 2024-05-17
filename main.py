@@ -19,6 +19,8 @@ import platform
 
 # from chlorophyll import CodeView
 from codeblock import CodeView
+
+from languages import language_pairs 
 # from pygments.formatters import TkinterFormatter
 
 # from pygments import highlight
@@ -104,12 +106,14 @@ txtwrap.set(False)
 
 bottom_bar = ttk.Frame(master=window)
 
+
+
 mb = ttk.Menubutton(master=bottom_bar, text="Language", textvariable=option_var,style='secondary.TMenubutton')
 menu = tk.Menu(mb)
 # add options
 
-for option in ['Python', 'Rust', 'Javascript', 'C', 'C++', 'Dart', 'YAML', 'Go']:
-    menu.add_radiobutton(label=option, value=option,variable=option_var,command=print_selected_value)
+for label, value in language_pairs.items():
+    menu.add_radiobutton(label=label, value=value,variable=option_var,command=print_selected_value)
 # associate menu with menubutton
 mb['menu'] = menu
 mb.pack(side='right')
