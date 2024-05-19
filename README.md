@@ -55,15 +55,21 @@ make .
 
 ## 🗒️ ToDo
 
-- Add make file
-- Add requirements.txt
-- Add pyinstaller config file
-- Add .python-version
-- Use Chlorophyll for syntax highlighting
+- [x] Add make file
+- [x] Add requirements.txt
+- [x] Add pyinstaller config file
+- [x] Add .python-version
+- [x] Use Chlorophyll for syntax highlighting
+- [ ] add drag and drop to open files
+- [ ] sense the file type on open and then auto select lexer
+- [ ] a markdown viewer to view markdown files, and also an editor, like Marktext
+- [ ] show path to the currently editing file
+- [ ] tree view like vscode
+- [ ] refactor into class based ui
 
 ## Ideas
 
-- common patters to add, TODO, DEBUG, REDO, FIXME, ERROR. These will be get highlighted
+- common pattenrs to add, TODO, DEBUG, REDO, FIXME, ERROR. These will be get highlighted
 - <https://stackoverflow.com/questions/38594978/tkinter-syntax-highlighting-for-text-widget>
 - <https://stackoverflow.com/a/77662152>
 
@@ -72,3 +78,12 @@ make .
 - Install NSIS from official site (for windows)
 - Open NSIS application, then click on "Compile NSI Script"
 - Browse and select the *.nsi file
+
+## Inspirations
+
+- KDE Kate
+- VS Code
+- Notepad++
+- Marktext
+- Atom
+- Gnome builder
