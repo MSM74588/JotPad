@@ -66,6 +66,10 @@ make .
 - [ ] show path to the currently editing file
 - [ ] tree view like vscode
 - [ ] refactor into class based ui
+- [ ] add file associations, so can be shown in "open with" context menu
+- [ ] inbuilt code sharing system using websockets?
+- [ ] a solid GUI system to init a git repo, set remote, and then push
+- [ ] Git commit modal box, with title and description space, and selecting and changing branch
 
 ## Ideas
 
@@ -85,5 +89,13 @@ make .
 - VS Code
 - Notepad++
 - Marktext
-- Atom
+- Atom (deprecated)
 - Gnome builder
+- lapce
+- CodeEdit for macOS
+- rustpad (web)
+- Codejar (web)
+- zed
+- sublime text (deprecated)
+- Brackets editor (deprecated)
+- Trix (misc)
