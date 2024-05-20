@@ -30,8 +30,12 @@ from components import CodeView, language_pairs
 # from pygments import highlight
 
 # window = ttk.Window(themename='cyborg')
+is_window_min = True
+
 window = ctk.CTk()
 ctk.set_appearance_mode("dark")
+
+# window.overrideredirect(True)
 
 ver = 1.1
 
@@ -140,12 +144,13 @@ def set_theme():
     if theme == "light":
         txt.config(color_scheme="ayu-light")
         window.style.theme_use(themename='pulse')
-        set_light_title_bar(window)
+        ctk.set_appearance_mode("dark")
 
     if theme == "dark":
         txt.config(color_scheme="ayu-dark")
         window.style.theme_use(themename='cyborg')
-        set_dark_title_bar(window)
+        ctk.set_appearance_mode("dark")
+
 
     else:
         pass
@@ -428,77 +433,24 @@ class TopBar(ctk.CTkFrame):
         super().__init__(master=parent)
         self.columnconfigure(1, weight=1)
 
-        window_title_var = tk.StringVar(value="JotPad")
 
-        # def get_window_title():
-        #     top_level_window = window.winfo_toplevel()
-        #     window_title = top_level_window.title()
-        #     return window_title
+        def move_app(e):
+                    window.geometry(f"+{e.x_root}+{e.y_root}")
 
-        def check_window_title():
-            current_title = window.title()
-            if window_title_var.get() != current_title:
-                window_title_var.set(current_title)
-            window.after(500, check_window_title) # this loops every 500 msec and checks for window title
-
-       
-        window_title_var.set(check_window_title())
+        self.bind("<B1-Motion>", move_app)
         
-        
-
-        class LogoArea(ctk.CTkFrame):
-            def __init__(self, parent):
-                super().__init__(master=parent)
-                label = ctk.CTkLabel(self, text="Hello world", textvariable=window_title_var).grid(column=0)
+    
 
         class MenuArea(ctk.CTkFrame):
             def __init__(self, parent):
                 super().__init__(master=parent)
-                label = ctk.CTkLabel(self, text="Hello world").grid(column=0)
-
-        class DragArea(ctk.CTkFrame):
-            def __init__(self, parent):
-                super().__init__(master=parent)
-                label = ctk.CTkLabel(self, text="DRAG AREA").grid(column=0)
-
-                def move_app(e):
-                    window.geometry(f"+{e.x_root}+{e.y_root}")
-
-                self.bind("<B1-Motion>", move_app)
-
-        class WindowButtonArea(ctk.CTkFrame):
-            def __init__(self, parent):
-                super().__init__(master=parent)
-                # label = ctk.CTkLabel(self, text="Hello world").grid(column=0)
-                self.rowconfigure(0, weight=1)
-
-                def minimise():
-                    window.iconify()
-
-                is_window_min = True  # Define is_window_min as a local variable
-                def maximize_window():
-                    value_holder = is_window_min
-                    if value_holder:
-                        is_window_min = False
-                        window.geometry("{0}x{1}".format(window.winfo_screenwidth(), window.winfo_screenheight()))
-                    if not value_holder:
-                        is_window_min = True
-                        window.geometry("900x300")
-            
-
-                
-                minimise_btn = ctk.CTkButton(self, text="min", corner_radius=0, fg_color="transparent", width=40, command=minimise).grid(column=0, row=0, sticky="nsew")
-                maximise_btn = ctk.CTkButton(self, text="max", corner_radius=0, fg_color="transparent", width=40, command=maximize_window).grid(column=1, row=0, sticky="nsew")
-                close_btn = ctk.CTkButton(self, text="close", corner_radius=0, fg_color="transparent", width=40, command=window.quit).grid(column=2, row=0, sticky="nsew")
+                label = ctk.CTkLabel(self, text="Hello world").pack()
 
 
-        self.columnconfigure(2, weight=1)
+        self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
-        logo_area = LogoArea(self).grid(column=0, row=0)
-        menu_area = MenuArea(self).grid(column=1, row=0)
-        drag_area = DragArea(self).grid(column=2, row=0)
-        menu_area = WindowButtonArea(self).grid(column=3, row=0)
+        menu_area = MenuArea(self).pack()
 
 topbar = TopBar(window)
 topbar.grid(column=0, row=0, sticky="nsew")
