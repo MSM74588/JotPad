@@ -30,7 +30,6 @@ from components import CodeView, language_pairs
 # from pygments import highlight
 
 # window = ttk.Window(themename='cyborg')
-is_window_min = True
 
 window = ctk.CTk()
 ctk.set_appearance_mode("dark")
@@ -64,8 +63,7 @@ window.config(bg=dark_bg)
 # txt = tk.Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
 
 window.columnconfigure(0, weight=1)
-window.rowconfigure(0, weight=100)
-window.rowconfigure(1, weight=1)
+window.rowconfigure(0, weight=1)
 
 
 def openTerminal():
@@ -103,7 +101,7 @@ def print_selected_value():
 # txtData = tk.StringVar()
 txt = CodeView(window, lexer=selected_lexer, font="consolas 13", wrap="none", color_scheme="ayu-dark")
 
-txt.grid(row="1", column="0", sticky="nsew")
+txt.grid(row="0", column="0", sticky="nsew")
 txt.focus()
 
 # !FIXME enables undo functionality, but is rough
@@ -162,7 +160,7 @@ for theme in ['light', 'dark']:
 theme_menu_option['menu'] = theme_options
 theme_menu_option.pack(side='left')
 
-bottom_bar.grid(row=2, column=0, sticky="nsew")
+bottom_bar.grid(row=1, column=0, sticky="nsew")
 
 #saved status flag
 saved=0
@@ -397,7 +395,7 @@ def txtwrapSet(*args):
         txt.config(wrap="none")
         # FIXME
         # scrollx.pack(side=BOTTOM, fill=X) 
-        txt.grid(column=1, row=0, sticky="nsew")
+        txt.grid(column=0, row=0, sticky="nsew")
 
 
 #HELP MENU OPTIONS
@@ -445,27 +443,27 @@ file.add_separator()
 file.add_command(label="Close", font=("", 10), command=confirmExit)
 
 
-#edit menu
-# edit = tk.Menu(menubar, tearoff=0)
-# menubar.add_cascade(label="Edit", menu=edit)
-# edit.add_command(label="Select All", font=("", 10), command=selectAll, accelerator="Ctrl+A")
-# edit.add_command(label="Cut", font=("", 10), command=cut, accelerator="Ctrl+X")
-# edit.add_command(label="Copy", font=("", 10), command=copy, accelerator="Ctrl+C")
-# edit.add_command(label="Paste", font=("", 10), command=paste, accelerator="Ctrl+V")
+# edit menu
+edit = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="Edit", menu=edit)
+edit.add_command(label="Select All", font=("", 10), command=selectAll, accelerator="Ctrl+A")
+edit.add_command(label="Cut", font=("", 10), command=cut, accelerator="Ctrl+X")
+edit.add_command(label="Copy", font=("", 10), command=copy, accelerator="Ctrl+C")
+edit.add_command(label="Paste", font=("", 10), command=paste, accelerator="Ctrl+V")
 
 
 
-#view menu
-# view = tk.Menu(menubar, tearoff=0)
-# menubar.add_cascade(label="View", menu=view)
-# view.add_command(label="Font Settings", font=("", 10), command=fontSet)
-# view.add_separator()
-# view.add_checkbutton(label="Text Wrap", variable=txtwrap, command=txtwrapSet)
+# view menu
+view = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="View", menu=view)
+view.add_command(label="Font Settings", font=("", 10), command=fontSet)
+view.add_separator()
+view.add_checkbutton(label="Text Wrap", variable=txtwrap, command=txtwrapSet)
 
-#help menu
-# help = tk.Menu(menubar, tearoff=0)
-# menubar.add_cascade(label="Help", menu=help)
-# help.add_command(label="About", font=("", 10), command=about)
+# help menu
+help = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="Help", menu=help)
+help.add_command(label="About", font=("", 10), command=about)
 
 
 
@@ -496,7 +494,7 @@ def redo_action(event=None):
 window.bind('<Control-z>', undo_action)
 window.bind('<Control-y>', redo_action)
 
-# window.config(menu=menubar)
+window.config(menu=menubar)
 window.bind('<Control-n>', newfile)
 window.bind('<Control-o>', openfile)
 window.bind('<Control-S>', saveAs)
