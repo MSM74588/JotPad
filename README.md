@@ -55,15 +55,25 @@ make .
 
 ## 🗒️ ToDo
 
-- Add make file
-- Add requirements.txt
-- Add pyinstaller config file
-- Add .python-version
-- Use Chlorophyll for syntax highlighting
+- [x] Add make file
+- [x] Add requirements.txt
+- [x] Add pyinstaller config file
+- [x] Add .python-version
+- [x] Use Chlorophyll for syntax highlighting
+- [ ] add drag and drop to open files
+- [ ] sense the file type on open and then auto select lexer
+- [ ] a markdown viewer to view markdown files, and also an editor, like Marktext
+- [ ] show path to the currently editing file
+- [ ] tree view like vscode
+- [ ] refactor into class based ui
+- [ ] add file associations, so can be shown in "open with" context menu
+- [ ] inbuilt code sharing system using websockets?
+- [ ] a solid GUI system to init a git repo, set remote, and then push
+- [ ] Git commit modal box, with title and description space, and selecting and changing branch
 
 ## Ideas
 
-- common patters to add, TODO, DEBUG, REDO, FIXME, ERROR. These will be get highlighted
+- common pattenrs to add, TODO, DEBUG, REDO, FIXME, ERROR. These will be get highlighted
 - <https://stackoverflow.com/questions/38594978/tkinter-syntax-highlighting-for-text-widget>
 - <https://stackoverflow.com/a/77662152>
 
@@ -72,3 +82,20 @@ make .
 - Install NSIS from official site (for windows)
 - Open NSIS application, then click on "Compile NSI Script"
 - Browse and select the *.nsi file
+
+## Inspirations
+
+- KDE Kate
+- VS Code
+- Notepad++
+- Marktext
+- Atom (deprecated)
+- Gnome builder
+- lapce
+- CodeEdit for macOS
+- rustpad (web)
+- Codejar (web)
+- zed
+- sublime text (deprecated)
+- Brackets editor (deprecated)
+- Trix (misc)
