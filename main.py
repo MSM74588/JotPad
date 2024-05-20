@@ -291,7 +291,7 @@ def fontSet(*args):
     fontlist = sorted([i for i in tkfont.families() if i[0].isalpha()])
     fonts = Combobox(fontBox, textvariable=fName, values=fontlist, font=("", 10), state="readonly").grid(row=0, column=1)
     
-    size = tk.Label(fontBox, text="Size:", font="constanta 12 bold"). grid(row=1, column=0, padx=15, pady=5)
+    size = tk.Label(fontBox, text="Size:", font="constanta 12 bold").grid(row=1, column=0, padx=15, pady=5)
     fSize = tk.StringVar(fontBox)
     fSize.set(currFsize)
     sizelist = [i for i in range(8, 51, 2)]
