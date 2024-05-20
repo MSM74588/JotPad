@@ -16,6 +16,8 @@ import pygments
 
 import subprocess
 import platform
+import CTkMenuBar as ctkmenu
+import customtkinter as ctk
 
 # from chlorophyll import CodeView
 # from components import CodeView
@@ -28,7 +30,8 @@ from components import CodeView, language_pairs
 # from pygments import highlight
 
 # window = ttk.Window(themename='cyborg')
-window = ttk.Window(themename='cyborg')
+window = ctk.CTk()
+ctk.set_appearance_mode("dark")
 
 ver = 1.1
 
@@ -42,7 +45,7 @@ try:
 except tk.TclError:
     pass  # Handle the case where the icon file is not found or cannot be set
 
-window.geometry("600x700")
+window.geometry("900x700")
 dark_bg = "#212121"
 window.config(bg=dark_bg)  
 
@@ -56,8 +59,8 @@ window.config(bg=dark_bg)
 #CODE VIEW
 # txt = tk.Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
 
-# window.columnconfigure(0, weight=1)
-window.rowconfigure(0, weight=1)
+window.columnconfigure(0, weight=1)
+window.rowconfigure(1, weight=1)
 # window.rowconfigure(1, weight=1)
 
 
@@ -96,7 +99,7 @@ def print_selected_value():
 # txtData = tk.StringVar()
 txt = CodeView(window, lexer=selected_lexer, font="consolas 13", wrap="none", color_scheme="ayu-dark")
 
-txt.grid(row="0", column="0", sticky="nsew")
+txt.grid(row="1", column="0", sticky="nsew")
 txt.focus()
 
 # !FIXME enables undo functionality, but is rough
@@ -111,7 +114,7 @@ txtwrap.set(False)
 #     bottombar.insert('end', option)
 # bottombar.pack(anchor="e")
 
-bottom_bar = ttk.Frame(master=window)
+bottom_bar = ctk.CTkFrame(master=window)
 
 
 
@@ -126,7 +129,7 @@ mb['menu'] = menu
 mb.pack(side='right')
 
 
-terminal_btn = ttk.Button(master=bottom_bar,text="Open Terminal", style='primary.TButton', command=openTerminal)
+terminal_btn = ctk.CTkButton(master=bottom_bar,text="Open Terminal", corner_radius=0, fg_color=("#875AFB","#277DFF"), command=openTerminal, width=110)
 terminal_btn.pack(side='left')
 
 # !FIXME
@@ -154,7 +157,7 @@ for theme in ['light', 'dark']:
 theme_menu_option['menu'] = theme_options
 theme_menu_option.pack(side='left')
 
-bottom_bar.grid(row=1, column=0, sticky="nsew")
+bottom_bar.grid(row=2, column=0, sticky="nsew")
 
 #saved status flag
 saved=0
@@ -285,18 +288,17 @@ def fontSet(*args):
     fontBox.resizable(0, 0)
     fontBox.title("Font Settings")
 
-    font = tk.Label(fontBox, text="Font:", font="constanta 12 bold").grid(row=0, column=0, padx=15, pady=5)
+    font = ctk.CTkLabel(fontBox, text="Font:", font="constanta 12 bold").grid(row=0, column=0, padx=15, pady=5)
     fName = tk.StringVar(fontBox)
     fName.set(currFname)
     fontlist = sorted([i for i in tkfont.families() if i[0].isalpha()])
     fonts = Combobox(fontBox, textvariable=fName, values=fontlist, font=("", 10), state="readonly").grid(row=0, column=1)
     
-    size = tk.Label(fontBox, text="Size:", font="constanta 12 bold").grid(row=1, column=0, padx=15, pady=5)
+    size = ctk.CTkLabel(fontBox, text="Size:", font="constanta 12 bold").grid(row=1, column=0, padx=15, pady=5)
     fSize = tk.StringVar(fontBox)
     fSize.set(currFsize)
     sizelist = [i for i in range(8, 51, 2)]
     sizes = Combobox(fontBox, textvariable=fSize, values = sizelist, font=("", 10), state="readonly").grid(row=1, column=1)
-    z
     bold = tk.Checkbutton(fontBox, text="Bold", font="constanta 12 bold", variable=boldchk).grid(row=3, column=0, padx=15)
     itl = tk.Checkbutton(fontBox, text="Italic", font="constanta 12 italic", variable=itlchk).grid(row=3, column=1)
     ul = tk.Checkbutton(fontBox, text="Underline", font="constanta 12 underline", variable=ulchk).grid(row=3, column=2)
@@ -389,7 +391,7 @@ def txtwrapSet(*args):
         txt.config(wrap="none")
         # FIXME
         # scrollx.pack(side=BOTTOM, fill=X) 
-        txt.grid(column=0, row=0, sticky="nsew")
+        txt.grid(column=1, row=0, sticky="nsew")
 
 
 #HELP MENU OPTIONS
@@ -402,7 +404,7 @@ def about(*args):
     aboutbox.resizable(0, 0)
     aboutbox.iconbitmap("icon.ico")
     msg = f"JotPad \nVersion: {ver} \n\nDeveloped by: \nAnurag Chattopadhyay \nMandraSaptak Mandal"
-    tk.Label(aboutbox, text=msg, font=("", "11"), justify="left", pady=10).pack()
+    ctk.CTkLabel(aboutbox, text=msg, font=("", "11"), justify="left", pady=10).pack()
     aboutbox.focus()
 
     def okpress():
@@ -418,41 +420,124 @@ def about(*args):
 # dark_fg = "#ffffff"
 
 # DEBUG: you cannot change the menubar bg in Windows or Mac, possible in linux
-menubar = ttk.Menu(window, tearoff=False, background="red")
+# menubar = ctkmenu.CTkMenuBar(window)
+# menubar.grid(column=3)
+
+class TopBar(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(master=parent)
+        self.columnconfigure(1, weight=1)
+
+        window_title_var = tk.StringVar(value="JotPad")
+
+        # def get_window_title():
+        #     top_level_window = window.winfo_toplevel()
+        #     window_title = top_level_window.title()
+        #     return window_title
+
+        def check_window_title():
+            current_title = window.title()
+            if window_title_var.get() != current_title:
+                window_title_var.set(current_title)
+            window.after(500, check_window_title) # this loops every 500 msec and checks for window title
+
+       
+        window_title_var.set(check_window_title())
+        
+        
+
+        class LogoArea(ctk.CTkFrame):
+            def __init__(self, parent):
+                super().__init__(master=parent)
+                label = ctk.CTkLabel(self, text="Hello world", textvariable=window_title_var).grid(column=0)
+
+        class MenuArea(ctk.CTkFrame):
+            def __init__(self, parent):
+                super().__init__(master=parent)
+                label = ctk.CTkLabel(self, text="Hello world").grid(column=0)
+
+        class DragArea(ctk.CTkFrame):
+            def __init__(self, parent):
+                super().__init__(master=parent)
+                label = ctk.CTkLabel(self, text="DRAG AREA").grid(column=0)
+
+                def move_app(e):
+                    window.geometry(f"+{e.x_root}+{e.y_root}")
+
+                self.bind("<B1-Motion>", move_app)
+
+        class WindowButtonArea(ctk.CTkFrame):
+            def __init__(self, parent):
+                super().__init__(master=parent)
+                # label = ctk.CTkLabel(self, text="Hello world").grid(column=0)
+                self.rowconfigure(0, weight=1)
+
+                def minimise():
+                    window.iconify()
+
+                is_window_min = True  # Define is_window_min as a local variable
+                def maximize_window():
+                    value_holder = is_window_min
+                    if value_holder:
+                        is_window_min = False
+                        window.geometry("{0}x{1}".format(window.winfo_screenwidth(), window.winfo_screenheight()))
+                    if not value_holder:
+                        is_window_min = True
+                        window.geometry("900x300")
+            
+
+                
+                minimise_btn = ctk.CTkButton(self, text="min", corner_radius=0, fg_color="transparent", width=40, command=minimise).grid(column=0, row=0, sticky="nsew")
+                maximise_btn = ctk.CTkButton(self, text="max", corner_radius=0, fg_color="transparent", width=40, command=maximize_window).grid(column=1, row=0, sticky="nsew")
+                close_btn = ctk.CTkButton(self, text="close", corner_radius=0, fg_color="transparent", width=40, command=window.quit).grid(column=2, row=0, sticky="nsew")
+
+
+        self.columnconfigure(2, weight=1)
+        self.rowconfigure(0, weight=1)
+
+        logo_area = LogoArea(self).grid(column=0, row=0)
+        menu_area = MenuArea(self).grid(column=1, row=0)
+        drag_area = DragArea(self).grid(column=2, row=0)
+        menu_area = WindowButtonArea(self).grid(column=3, row=0)
+
+topbar = TopBar(window)
+topbar.grid(column=0, row=0, sticky="nsew")
+
+
 
 
 #file menu
-file = tk.Menu(menubar, tearoff=0)
-menubar.add_cascade(label="File", menu=file)
-file.add_command(label="New File", font=("", 10), command=newfile, accelerator="Ctrl+N")
-file.add_command(label="Open File", font=("", 10), command=openfile, accelerator="Ctrl+O")
-file.add_command(label="Save", font=("", 10), command=save, accelerator="Ctrl+S")
-file.add_command(label="Save as", font=("", 10), command=saveAs, accelerator="Ctrl+Shift+S")
-file.add_separator()
-file.add_command(label="Close", font=("", 10), command=confirmExit)
+# file = tk.Menu(menubar, tearoff=0)
+# menubar.add_cascade(label="File", menu=file)
+# file.add_command(label="New File", font=("", 10), command=newfile, accelerator="Ctrl+N")
+# file.add_command(label="Open File", font=("", 10), command=openfile, accelerator="Ctrl+O")
+# file.add_command(label="Save", font=("", 10), command=save, accelerator="Ctrl+S")
+# file.add_command(label="Save as", font=("", 10), command=saveAs, accelerator="Ctrl+Shift+S")
+# file.add_separator()
+# file.add_command(label="Close", font=("", 10), command=confirmExit)
 
 
 #edit menu
-edit = tk.Menu(menubar, tearoff=0)
-menubar.add_cascade(label="Edit", menu=edit)
-edit.add_command(label="Select All", font=("", 10), command=selectAll, accelerator="Ctrl+A")
-edit.add_command(label="Cut", font=("", 10), command=cut, accelerator="Ctrl+X")
-edit.add_command(label="Copy", font=("", 10), command=copy, accelerator="Ctrl+C")
-edit.add_command(label="Paste", font=("", 10), command=paste, accelerator="Ctrl+V")
+# edit = tk.Menu(menubar, tearoff=0)
+# menubar.add_cascade(label="Edit", menu=edit)
+# edit.add_command(label="Select All", font=("", 10), command=selectAll, accelerator="Ctrl+A")
+# edit.add_command(label="Cut", font=("", 10), command=cut, accelerator="Ctrl+X")
+# edit.add_command(label="Copy", font=("", 10), command=copy, accelerator="Ctrl+C")
+# edit.add_command(label="Paste", font=("", 10), command=paste, accelerator="Ctrl+V")
 
 
 
 #view menu
-view = tk.Menu(menubar, tearoff=0)
-menubar.add_cascade(label="View", menu=view)
-view.add_command(label="Font Settings", font=("", 10), command=fontSet)
-view.add_separator()
-view.add_checkbutton(label="Text Wrap", variable=txtwrap, command=txtwrapSet)
+# view = tk.Menu(menubar, tearoff=0)
+# menubar.add_cascade(label="View", menu=view)
+# view.add_command(label="Font Settings", font=("", 10), command=fontSet)
+# view.add_separator()
+# view.add_checkbutton(label="Text Wrap", variable=txtwrap, command=txtwrapSet)
 
 #help menu
-help = tk.Menu(menubar, tearoff=0)
-menubar.add_cascade(label="Help", menu=help)
-help.add_command(label="About", font=("", 10), command=about)
+# help = tk.Menu(menubar, tearoff=0)
+# menubar.add_cascade(label="Help", menu=help)
+# help.add_command(label="About", font=("", 10), command=about)
 
 
 
@@ -483,7 +568,7 @@ def redo_action(event=None):
 window.bind('<Control-z>', undo_action)
 window.bind('<Control-y>', redo_action)
 
-window.config(menu=menubar)
+# window.config(menu=menubar)
 window.bind('<Control-n>', newfile)
 window.bind('<Control-o>', openfile)
 window.bind('<Control-S>', saveAs)
