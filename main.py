@@ -18,9 +18,11 @@ import subprocess
 import platform
 
 # from chlorophyll import CodeView
-from codeblock import CodeView
+# from components import CodeView
 
-from languages import language_pairs 
+# from components import language_pairs
+
+from components import CodeView, language_pairs
 # from pygments.formatters import TkinterFormatter
 
 # from pygments import highlight
@@ -53,6 +55,11 @@ window.config(bg=dark_bg)
 
 #CODE VIEW
 # txt = tk.Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
+
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=100)
+window.rowconfigure(1, weight=1)
+
 
 def openTerminal():
     print("OPEN TERMINAL")
@@ -89,7 +96,7 @@ def print_selected_value():
 # txtData = tk.StringVar()
 txt = CodeView(window, lexer=selected_lexer, font="consolas 13", wrap="none", color_scheme="ayu-dark")
 
-txt.pack(expand=True, fill=BOTH)
+txt.grid(row="0", column="0", sticky="nsew")
 txt.focus()
 
 # !FIXME enables undo functionality, but is rough
@@ -147,7 +154,7 @@ for theme in ['light', 'dark']:
 theme_menu_option['menu'] = theme_options
 theme_menu_option.pack(side='left')
 
-bottom_bar.pack(fill="x")
+bottom_bar.grid(row=1, column=0, sticky="nsew")
 
 #saved status flag
 saved=0
@@ -382,7 +389,7 @@ def txtwrapSet(*args):
         txt.config(wrap="none")
         # FIXME
         # scrollx.pack(side=BOTTOM, fill=X) 
-        txt.pack(expand=True, fill=BOTH)
+        txt.grid(column=0, row=0, sticky="nsew")
 
 
 #HELP MENU OPTIONS
