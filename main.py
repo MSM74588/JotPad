@@ -141,12 +141,12 @@ def set_theme():
     theme = theme_var.get()
     if theme == "light":
         txt.config(color_scheme="ayu-light")
-        window.style.theme_use(themename='pulse')
-        ctk.set_appearance_mode("dark")
+        # window.style.theme_use(themename='pulse')
+        ctk.set_appearance_mode("light")
 
     if theme == "dark":
         txt.config(color_scheme="ayu-dark")
-        window.style.theme_use(themename='cyborg')
+        # window.style.theme_use(themename='cyborg')
         ctk.set_appearance_mode("dark")
 
 
