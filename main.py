@@ -64,13 +64,8 @@ window.config(bg=dark_bg)
 # txt = tk.Text(window, font="consolas 16", wrap="none", xscrollcommand=scrollx.set, yscrollcommand=scrolly.set)
 
 window.columnconfigure(0, weight=1)
-<<<<<<< HEAD
-window.rowconfigure(1, weight=1)
-# window.rowconfigure(1, weight=1)
-=======
 window.rowconfigure(0, weight=100)
 window.rowconfigure(1, weight=1)
->>>>>>> parent of eab9c34 (layout tweak)
 
 
 def openTerminal():
@@ -309,10 +304,7 @@ def fontSet(*args):
     fSize.set(currFsize)
     sizelist = [i for i in range(8, 51, 2)]
     sizes = Combobox(fontBox, textvariable=fSize, values = sizelist, font=("", 10), state="readonly").grid(row=1, column=1)
-<<<<<<< HEAD
-=======
     
->>>>>>> parent of eab9c34 (layout tweak)
     bold = tk.Checkbutton(fontBox, text="Bold", font="constanta 12 bold", variable=boldchk).grid(row=3, column=0, padx=15)
     itl = tk.Checkbutton(fontBox, text="Italic", font="constanta 12 italic", variable=itlchk).grid(row=3, column=1)
     ul = tk.Checkbutton(fontBox, text="Underline", font="constanta 12 underline", variable=ulchk).grid(row=3, column=2)
