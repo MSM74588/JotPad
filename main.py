@@ -429,48 +429,14 @@ def about(*args):
 # menubar = ctkmenu.CTkMenuBar(window)
 # menubar.grid(column=3)
 
-class TopBar(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(master=parent)
-        self.columnconfigure(1, weight=1)
 
 
-        def move_app(e):
-                    window.geometry(f"+{e.x_root}+{e.y_root}")
-
-        self.bind("<B1-Motion>", move_app)
-        
-    
-
-        class MenuArea(ctk.CTkFrame):
-            def __init__(self, parent):
-                super().__init__(master=parent)
-                label = ctk.CTkLabel(self, text="Hello world").pack()
-
-                file = tk.Menu(self, tearoff=0)
-                # self.add_cascade(label="File", menu=file)
-                file.add_command(label="New File", font=("", 10), command=newfile, accelerator="Ctrl+N")
-            file.add_command(label="Open File", font=("", 10), command=openfile, accelerator="Ctrl+O")
-            file.add_command(label="Save", font=("", 10), command=save, accelerator="Ctrl+S")
-            file.add_command(label="Save as", font=("", 10), command=saveAs, accelerator="Ctrl+Shift+S")
-            file.add_separator()
-            file.add_command(label="Close", font=("", 10), command=confirmExit)
+menubar = ttk.Menu(window, tearoff=False)
 
 
-        self.columnconfigure(0, weight=1)
-        self.rowconfigure(0, weight=1)
-
-        menu_area = MenuArea(self).pack()
-
-topbar = TopBar(window)
-topbar.grid(column=0, row=0, sticky="nsew")
-
-
-
-
-# file menu
-file = tk.Menu(TopBar, tearoff=0)
-TopBar.add_cascade(label="File", menu=file)
+#file menu
+file = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="File", menu=file)
 file.add_command(label="New File", font=("", 10), command=newfile, accelerator="Ctrl+N")
 file.add_command(label="Open File", font=("", 10), command=openfile, accelerator="Ctrl+O")
 file.add_command(label="Save", font=("", 10), command=save, accelerator="Ctrl+S")
